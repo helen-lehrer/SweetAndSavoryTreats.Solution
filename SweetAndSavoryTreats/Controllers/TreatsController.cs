@@ -24,12 +24,10 @@ namespace SweetAndSavoryTreats.Controllers
       _db = db;
     }
 
+    [AllowAnonymous]
     public async Task<ActionResult> Index()
     {
-      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-      var currentUser = await _userManager.FindByIdAsync(userId);
-      var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
-      return View(userTreats);
+      return View(_db.Treats.ToList());
     }
 
     public ActionResult Create()
@@ -53,6 +51,7 @@ namespace SweetAndSavoryTreats.Controllers
       return RedirectToAction("Index");
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisTreat = _db.Treats

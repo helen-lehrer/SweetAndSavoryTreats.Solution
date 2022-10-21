@@ -5,7 +5,8 @@
 @using SweetAndSavoryTreats.Models;
 
 <div class="jumbotron">
-  <h1>Dr. Bubbie's SweetAndSavoryTreats</h1>
+  <h1>Pierre's Sweet And Savory Treats</h1>
+  <p>@Html.ActionLink("Create an account", "Index", "Accounts")</p>
 </div>
 <div class="row index-list-all">
   <div class="col-6 border-right border-dark" id="index-list-Flavors">
@@ -33,6 +34,5 @@
         <li>@Html.ActionLink($"{Treat.TreatName}", "Details", "Treats",new { id = Treat.TreatId })</li>
       }
     </ul>
-    <p>@Html.ActionLink("Create an account", "Index", "Accounts")</p>
   </div>
 </div>

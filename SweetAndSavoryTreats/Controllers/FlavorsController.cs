@@ -4,9 +4,15 @@ using Microsoft.AspNetCore.Mvc;
 using SweetAndSavoryTreats.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace SweetAndSavoryTreats.Controllers
 {
+  [Authorize]
   public class FlavorsController : Controller
   {
     private readonly SweetAndSavoryTreatsContext _db;
@@ -16,6 +22,7 @@ namespace SweetAndSavoryTreats.Controllers
       _db = db;
     }
     
+    [AllowAnonymous]
     public ActionResult Index()
     {
       return View(_db.Flavors.ToList());
@@ -34,6 +41,7 @@ namespace SweetAndSavoryTreats.Controllers
       return RedirectToAction("Index");
     }
 
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisFlavor = _db.Flavors
