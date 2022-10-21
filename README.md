@@ -1,6 +1,6 @@
 # Pierre's Sweet and Savory Treats
 
-#### A MVC Web Application: Many-To-Many Database Relationship 
+#### MVC Web Application: Many-To-Many Database Relationship 
 
 #### By Helen Lehrer
 
@@ -10,14 +10,14 @@ An MVC application for a bakery that has user authentication and many-to-many re
  
 The User Can:
 
-* Log in and log out. Only logged in users have create, update, and delete functionality. All users have read functionality
+* Log in and log out. Only logged in users have create, update, and delete functionality. All users have read functionality.
 * Select an flavor, see it's details, and see a list of all treats that belong to that flavor. They can also select a treat, see its details, and see a list of all flavors assigned to it.
-* All data can be edited or deleted
+* All data can be edited or deleted.
 * Navigate to a splash page that lists all treats and flavors. They can click on an individual flavor or treat to see all the flavors/treats that belong to it.
 
 Features:
 
-* User Authentification
+* User authentification
 * A splash page
 * Many-to-Many database relationship
 * Multiple controllers 
@@ -83,7 +83,7 @@ Add the following code to the **appsettings.json** file:
 
 * Make sure to insert your MySQL username and password into the  **appsettings.json**  connection string
 
-* Note that the database will change based on the database you are connecting to and that uid and pwd may vary depending on your MySql configurations.
+* Note that uid and pwd may vary depending on your MySql configurations.
 
 Update your local MySQL database:
 ```bash
