@@ -22,7 +22,7 @@ namespace SweetAndSavoryTreats.Controllers
       _db = db;
     }
     
-    [AllowAnonymous]
+    
     public ActionResult Index()
     {
       return View(_db.Flavors.ToList());
@@ -41,7 +41,6 @@ namespace SweetAndSavoryTreats.Controllers
       return RedirectToAction("Index");
     }
 
-    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       var thisFlavor = _db.Flavors
@@ -73,11 +72,19 @@ namespace SweetAndSavoryTreats.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddTreat(Flavor Flavor, int TreatId)
+    public ActionResult AddTreat(Flavor flavor, int treatId)
     {
-      if (TreatId != 0)
+      List<FlavorTreat> joinList = _db.FlavorTreat.ToList();
+      foreach(FlavorTreat join in joinList)
       {
-        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = Flavor.FlavorId });
+        if(join.TreatId == treatId && join.FlavorId == flavor.FlavorId)
+          {
+            return RedirectToAction("Index");
+          }
+        }
+      if (treatId != 0)
+      {
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = treatId, FlavorId = flavor.FlavorId });
         _db.SaveChanges();
       }
       return RedirectToAction("Index");

@@ -36,16 +36,16 @@ namespace SweetAndSavoryTreats.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Treat treat, int FlavorId)
+    public async Task<ActionResult> Create(Treat treat, int flavorId)
     {
       var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       var currentUser = await _userManager.FindByIdAsync(userId);
       treat.User = currentUser;
       _db.Treats.Add(treat);
       _db.SaveChanges();
-      if (FlavorId != 0)
+      if (flavorId != 0)
       {
-        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = FlavorId, TreatId = treat.TreatId });
+        _db.FlavorTreat.Add(new FlavorTreat() { FlavorId = flavorId, TreatId = treat.TreatId });
       }
       _db.SaveChanges();
       return RedirectToAction("Index");
@@ -84,13 +84,21 @@ namespace SweetAndSavoryTreats.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddFlavor(Treat Treat, int FlavorId)
+    public ActionResult AddFlavor(Treat treat, int flavorId)
     {
-      if (FlavorId != 0)
+      List<FlavorTreat> joinList = _db.FlavorTreat.ToList();
+      foreach(FlavorTreat join in joinList)
       {
-        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = Treat.TreatId, FlavorId = FlavorId });
+        if(join.TreatId == treat.TreatId && join.FlavorId == flavorId)
+          {
+            return RedirectToAction("Index");
+          }
+        }
+        if (flavorId != 0) 
+        {
+        _db.FlavorTreat.Add(new FlavorTreat() { TreatId = treat.TreatId, FlavorId = flavorId });
         _db.SaveChanges();
-      }
+        }
       return RedirectToAction("Index");
     }
 
